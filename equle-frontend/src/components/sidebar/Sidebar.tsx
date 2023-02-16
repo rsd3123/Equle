@@ -1,21 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './Sidebar.css';
 
-function Sidebar() {
-    const [isOverlayHidden, setIsOverlayHidden] = useState(true);
+function Sidebar(props:any){
+    const ref = useRef<any>();
 
-    //Toggle extended menu
-    const toggleOverlay = () => {
-        setIsOverlayHidden(!isOverlayHidden);
-    }
+    useEffect(() => {
+      
+        const checkIfClickedOutside = (e:any) => {
+        //If overlay is open and clicked target is not part of Sidebar then close overlay
+          if (!props.isOverlayHidden && ref.current && !ref.current.contains(e.target)) {
+            props.setIsOverlayHidden(true)
+          }
+        }
+    
+        document.addEventListener("mousedown", checkIfClickedOutside)
+    
+        return () => {
+          // Cleanup the event listener
+          document.removeEventListener("mousedown", checkIfClickedOutside)
+        }
+      }, [props.isOverlayHidden])
 
     return (
-        <div className="Sidebar-full">
+        <div className="Sidebar-full" ref={ref}>
             <div className = "Sidebar">
-                <button className = 'Sidebar-btn' id = 'Sidebar-overlay-horz-btn' onClick={toggleOverlay}></button>
+                <button className = 'Sidebar-btn' id = 'Sidebar-overlay-horz-btn' onClick={props.toggleOverlay}></button>
                 <button className = 'Sidebar-btn' id = 'Sidebar-leaderboard-btn'></button>
             </div>
-            <div className = "Extended" hidden = {isOverlayHidden}>
+            <div className = "Extended" hidden = {props.isOverlayHidden}>
                 <div className = "Textbox">
                     <div className = "Rules">
                         <text className = "Heading"><b>Rules: </b></text>
