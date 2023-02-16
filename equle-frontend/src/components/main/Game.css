@@ -1,0 +1,7 @@
+.Game{
+    height: 90%;
+    width: 90%;
+
+    border: 5px #282c34 solid;
+    background-color: #a3a3a3;
+}
