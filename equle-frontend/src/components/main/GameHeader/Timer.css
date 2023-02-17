@@ -1,0 +1,18 @@
+.Timer{
+    max-width: fit-content;
+    max-height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+
+    padding: 2px;
+
+    color: whitesmoke;
+}
+
+#Timer-img{
+    width: 30px;
+    height: 30px;
+}

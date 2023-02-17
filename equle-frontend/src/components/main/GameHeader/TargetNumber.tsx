@@ -5,7 +5,7 @@ function TargetNumber(props:any) {
     
     return (
         <div className="TargetNumber">
-           
+           <text>{props.number}</text>
         </div>
     );
 }

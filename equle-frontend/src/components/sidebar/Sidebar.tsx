@@ -22,12 +22,12 @@ function Sidebar(props:any){
       }, [props.isOverlayHidden])
 
     return (
-        <div className="Sidebar-full" ref={ref}>
+        <div className="Sidebar-full" ref={ref} style = {{width: (props.isOverlayHidden?'10%':'40%')}}>
             <div className = "Sidebar">
                 <button className = 'Sidebar-btn' id = 'Sidebar-overlay-horz-btn' onClick={props.toggleOverlay}></button>
                 <button className = 'Sidebar-btn' id = 'Sidebar-leaderboard-btn'></button>
             </div>
-            <div className = "Extended" hidden = {props.isOverlayHidden}>
+            <div className = "Extended" style = {{display: (props.isOverlayHidden?'none':'flex')}}>
                 <div className = "Textbox">
                     <div className = "Rules">
                         <text className = "Heading"><b>Rules: </b></text>

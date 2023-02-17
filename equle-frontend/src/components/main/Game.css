@@ -5,3 +5,18 @@
     border: 5px #282c34 solid;
     background-color: #a3a3a3;
 }
+
+.GameHeader{
+    height: 3%;
+    max-width:100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+
+    padding:20px;
+
+    background-color: #282c34;
+    color:whitesmoke;
+}

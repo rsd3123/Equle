@@ -1,7 +1,7 @@
 .Sidebar-full{
     min-height: 100vh;
     max-height: 100vh;
-    width: 40%;
+    width: 10%;
 
     display: flex;
     flex-direction: row;
@@ -67,7 +67,7 @@
 }
 
 .Textbox{
-    height:100%;
+    min-height:100%;
 
     width:100%;
 
@@ -75,15 +75,15 @@
     flex-direction: column;
     justify-content: space-between;
 
-    font-size: medium;
+    font-size: 1.5vw;
 }
 
 .Heading{
-    font-size:x-large;
+    font-size:1.75vw;
 }
 
 .Rules{
     max-height: 60%;
 
-    font-size: medium;
+    font-size: 1.5vw;
 }

@@ -5,7 +5,7 @@ function ScoreBoard(props: any) {
     
     return (
         <div className="ScoreBoard">
-           
+           <text>Score: {props.score}</text>
         </div>
     );
 }
