@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Game.css';
 import GuessedNumbers from './GameBoard/GuessedNumbers';
 import GuessRow from './GameBoard/GuessRow';
@@ -7,12 +7,21 @@ import TargetNumber from './GameHeader/TargetNumber';
 import Timer from './GameHeader/Timer';
 
 function Game() {
-    var numRows = 4
-    var guessRows = [];
-    for (let i = 0; i < numRows; i++) {
-        guessRows.push(<GuessRow/>);
-    }
+    const [currentRow, setCurrentRow] = useState<number>(-1);
+    const [currentGuess, setCurrentGuess] = useState<string>('');
 
+    const [numBoxes, setNumBoxes] = useState<number>(4); // get init from server
+    const [numRows, setNumRows] = useState<number>(4); // get init from server
+
+    //When the current guess is updated, get check from server, then change color accordingly, and increment current row.
+    //Get isMatch from server: returns [] of length numBoxes. each element in [] is either a 0 (wrong), 1, wrong place, or 2 (corrent num and place)
+    useEffect(() => {
+        console.log(currentGuess);
+        if(currentRow+1<=numRows){
+            setCurrentRow(currentRow+1);
+        }
+    }, [currentGuess]);
+    
     return (
         <div className="Game">
            <div className = "GameHeader">
@@ -21,7 +30,7 @@ function Game() {
                 <Timer time = "1:00"></Timer>
            </div>
            <div className='GameBoard'>
-                {guessRows}
+                {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess}/>)}
            </div>
            
            <GuessedNumbers></GuessedNumbers>
