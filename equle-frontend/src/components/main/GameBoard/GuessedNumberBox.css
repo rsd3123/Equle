@@ -1,6 +1,22 @@
-.GuessedNumbers{
+.GuessedNumberBox{
+    min-width:7vh;
+    min-height:7vh;
+    max-height:7vh;
 
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background-color: whitesmoke;
+
+    margin:0.5vh;
+}
+
+.BoxButton{
+    height: 7vh;
+    width: 100%;
+
+    background-color:whitesmoke;
+    border:none;
 }
