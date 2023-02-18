@@ -10,7 +10,7 @@ function Game() {
     const [currentRow, setCurrentRow] = useState<number>(-1);
     const [currentGuess, setCurrentGuess] = useState<string>('');
 
-    const [numBoxes, setNumBoxes] = useState<number>(8); // get init from server
+    const [numBoxes, setNumBoxes] = useState<number>(7); // get init from server- 3 <= length <= 7
     const [numRows, setNumRows] = useState<number>(5); // get init from server
 
     //When the current guess is updated, get check from server, then change color accordingly, and increment current row.
@@ -32,8 +32,9 @@ function Game() {
            <div className='GameBoard'>
                 {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess}/>)}
            </div>
-           
-           <GuessedNumbers></GuessedNumbers>
+           <div className='GuessedNumbersRow'>
+                <GuessedNumbers></GuessedNumbers>
+           </div>
         </div>
     );
 }

@@ -1,13 +1,15 @@
 .Sidebar-full{
     min-height: 100vh;
-    max-height: 100vh;
-    width: 10%;
+    
+    max-width: fit-content;
 
     display: flex;
     flex-direction: row;
     align-items: stretch;
 
-    position: fixed;
+    position: relative;
+    z-index:1;
+    
 }
 
 /*Vertical Sidebar*/
@@ -17,7 +19,7 @@
 
     /*Change .Extended width when changing this width*/
     min-width: 10vh;
-    height: auto;
+    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
@@ -55,8 +57,7 @@
 /*Extended Sidebar*/
 .Extended{
     /*width is 100 - .Sidebar width*/
-    min-width: 88%;
-    max-width: 88%;
+    width:fit-content;
     height:auto;
 
     padding:2%;

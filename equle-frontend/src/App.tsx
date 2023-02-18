@@ -13,9 +13,11 @@ function App() {
 
   return (
     <div className="App">
-      <Main></Main>
+      
 
       <Sidebar isOverlayHidden = {isOverlayHidden} toggleOverlay = {() => {setIsOverlayHidden(!isOverlayHidden)}} setIsOverlayHidden = {setIsOverlayHidden}></Sidebar>
+
+      <Main></Main>
       
     </div>
   );
