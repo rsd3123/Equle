@@ -9,12 +9,11 @@
 
     padding: 10px;
     
-
-    background-color: blueviolet;
+    background-color: rgb(230, 226, 235);
 }
 
 #Title{
-    font-size: x-large;
+    font-size: 5vh;
     color:#282c34;
     padding:2px;
     margin-bottom:2%;

@@ -20,7 +20,6 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     
     //If all boxes have values
     useEffect(() => {
-        console.log("hi");
         var filled = true;
         for(let i = 0; i < boxValues.length; i++){
             if(boxValues[i] == ''){

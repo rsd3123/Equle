@@ -9,19 +9,35 @@ import Timer from './GameHeader/Timer';
 function Game() {
     const [currentRow, setCurrentRow] = useState<number>(-1);
     const [currentGuess, setCurrentGuess] = useState<string>('');
+    const [currentNumber, setCurrentNumber] = useState<number>();
 
     const [numBoxes, setNumBoxes] = useState<number>(7); // get init from server- 3 <= length <= 7
     const [numRows, setNumRows] = useState<number>(5); // get init from server
 
+    //Colors to change boxes
+    const yellow = 'yellow';
+    const green = 'green';
+
+    //on first load, get puzzle from server
+    useEffect(() => {
+        setCurrentNumber(999);
+    }, []);
     //When the current guess is updated, get check from server, then change color accordingly, and increment current row.
     //Get isMatch from server: returns [] of length numBoxes. each element in [] is either a 0 (wrong), 1, wrong place, or 2 (corrent num and place)
     useEffect(() => {
         console.log(currentGuess);
+
+        //Send current guess to server, check if match. If not match, change colors accordingly or end game & show end screen. If match, score += 1, timer += 60 seconds, reset squares, reset puzzle.
+
         if(currentRow+1<=numRows){
             setCurrentRow(currentRow+1);
         }
     }, [currentGuess]);
     
+    function resetPuzzle(){
+        //get new puzzle from server, clear current guess rows, current row = 0, change number
+    }
+
     return (
         <div className="Game">
            <div className = "GameHeader">
