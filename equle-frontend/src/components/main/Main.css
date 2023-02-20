@@ -12,9 +12,12 @@
     background-color: rgb(230, 226, 235);
 }
 
+.Main-Div{
+    padding:2px;
+    margin-bottom:2%;
+}
+
 #Title{
     font-size: 5vh;
     color:#282c34;
-    padding:2px;
-    margin-bottom:2%;
 }

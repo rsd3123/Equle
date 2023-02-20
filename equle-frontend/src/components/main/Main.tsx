@@ -11,9 +11,18 @@ function Main(props:any) {
 
     return (
         <div className="Main">
-            <LeaderboardOverlay isHidden = {props.isLeaderboardHidden}></LeaderboardOverlay>
-           <text id = 'Title'><b>Equle</b></text>
-           <Game></Game>
+            
+            <div className = 'Main-Div'>
+                <text id = 'Title'><b>Equle</b></text>
+            </div>
+
+            <LeaderboardOverlay isHidden = {props.isLeaderboardHidden} toggleLeaderboard = {props.toggleLeaderboard}></LeaderboardOverlay>
+            
+            <div className = 'Main-Div' hidden = {!props.isLeaderboardHidden}>
+                <Game></Game>
+            </div>
+            
+    
         </div>
     );
 }
