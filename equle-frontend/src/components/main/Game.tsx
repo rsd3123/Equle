@@ -5,11 +5,15 @@ import GuessRow from './GameBoard/GuessRow';
 import ScoreBoard from './GameHeader/ScoreBoard';
 import TargetNumber from './GameHeader/TargetNumber';
 import Timer from './GameHeader/Timer';
+import GameOverOverlay from './GameOverOverlay';
 
 function Game() {
     const [currentRow, setCurrentRow] = useState<number>(-1);
     const [currentGuess, setCurrentGuess] = useState<string>('');
     const [currentNumber, setCurrentNumber] = useState<number>();
+    const [currentScore, setCurrentScore] = useState<number>(0);
+
+    const [isGameOverHidden, setIsGameOverHidden] = useState<boolean>(true);
 
     const [numBoxes, setNumBoxes] = useState<number>(7); // get init from server- 3 <= length <= 7
     const [numRows, setNumRows] = useState<number>(5); // get init from server
@@ -40,10 +44,11 @@ function Game() {
 
     return (
         <div className="Game">
+            <GameOverOverlay isHidden = {isGameOverHidden} score = {currentScore}></GameOverOverlay>
            <div className = "GameHeader">
                 <ScoreBoard score = {0}></ScoreBoard>
-                <TargetNumber number = {9999}></TargetNumber>
-                <Timer time = "1:00"></Timer>
+                <TargetNumber number = {currentNumber}></TargetNumber>
+                <Timer time = {60}></Timer>
            </div>
            <div className='GameBoard'>
                 {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess}/>)}
@@ -51,6 +56,7 @@ function Game() {
            <div className='GuessedNumbersRow'>
                 <GuessedNumbers></GuessedNumbers>
            </div>
+           
         </div>
     );
 }
