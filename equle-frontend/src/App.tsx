@@ -14,7 +14,7 @@ function App() {
       
 
       <Sidebar isOverlayHidden = {isOverlayHidden} toggleOverlay = {() => {setIsOverlayHidden(!isOverlayHidden)}} setIsOverlayHidden = {setIsOverlayHidden} isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)}></Sidebar>
-
+      <div className = "Spacer"></div>
       <Main isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)}></Main>
       
     </div>
