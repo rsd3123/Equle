@@ -1,6 +1,7 @@
 .Sidebar-full{
     min-height: 100vh;
     
+    min-width: 10vh;
     width: fit-content;
 
     display: flex;
@@ -91,5 +92,5 @@
 .Rules{
     max-height: 60%;
 
-    font-size: calc(6px + 2vmin);
+    font-size: 2vmin;
 }

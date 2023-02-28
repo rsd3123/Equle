@@ -12,6 +12,8 @@ function Game() {
     const [currentGuess, setCurrentGuess] = useState<string>('');
     const [currentNumber, setCurrentNumber] = useState<number>();
     const [currentScore, setCurrentScore] = useState<number>(0);
+    const [currentTime, setCurrentTime] = useState<number>(60);
+    const [currentSelectedBox, setCurrentSelectedBox] = useState();
 
     const [isGameOverHidden, setIsGameOverHidden] = useState<boolean>(true);
 
@@ -26,6 +28,7 @@ function Game() {
     useEffect(() => {
         setCurrentNumber(999);
     }, []);
+
     //When the current guess is updated, get check from server, then change color accordingly, and increment current row.
     //Get isMatch from server: returns [] of length numBoxes. each element in [] is either a 0 (wrong), 1, wrong place, or 2 (corrent num and place)
     useEffect(() => {
@@ -42,17 +45,34 @@ function Game() {
         //get new puzzle from server, clear current guess rows, current row = 0, change number
     }
 
+    //Timer
+    useEffect(() => {
+        const interval = setTimeout(() => {
+            if(currentTime > 0){
+                var tempTime = currentTime;
+                setCurrentTime(tempTime-1);
+            }
+        }, 1000);
+        
+        
+    }, [currentTime]);
+    
+
     return (
         <div className="Game">
+
             <GameOverOverlay isHidden = {isGameOverHidden} score = {currentScore}></GameOverOverlay>
+           
            <div className = "GameHeader">
                 <ScoreBoard score = {0}></ScoreBoard>
                 <TargetNumber number = {currentNumber}></TargetNumber>
-                <Timer time = {60}></Timer>
+                <Timer time = {currentTime} setTime = {setCurrentTime}></Timer>
            </div>
+           
            <div className='GameBoard'>
                 {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess}/>)}
            </div>
+           
            <div className='GuessedNumbersRow'>
                 <GuessedNumbers></GuessedNumbers>
            </div>

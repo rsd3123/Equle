@@ -37,7 +37,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     
     return (
         <div className="GuessRow">
-            {Array(numBoxes).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {i+10+(10*props.id)} id = {i.toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange}/>)}
+            {Array(numBoxes).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {i+10+(10*props.id)} id = {i.toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} autoComplete="off"/>)}
         </div>
     );
 }

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Game from './Game';
 import './LeaderboardOverlay.css';
 
 function LeaderboardOverlay(props:any) {
@@ -14,6 +13,9 @@ function LeaderboardOverlay(props:any) {
                 <text>Rank</text>
                 <text>Name</text>
                 <text>Score</text>
+            </div>
+            <div className='Rankings'>
+                
             </div>
         </div>
     );

@@ -38,6 +38,9 @@
     border:none;
 }
 
+.Exit-Btn:hover{
+    background-color: #a3a3a3;
+}
 #Title{
     font-size: 10vh;
 }
