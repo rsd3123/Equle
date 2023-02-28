@@ -6,6 +6,9 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const [boxValues, setBoxValues] = useState<string[]>(new Array(numBoxes).fill(''))
 
     const handleChange = (event:any) =>{
+
+        props.setTimerOn(true);
+        
         const newValues = boxValues.map((value,i) =>{
             if(i == event.target.id){
                 return event.target.value;

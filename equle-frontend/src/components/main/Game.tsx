@@ -13,6 +13,8 @@ function Game() {
     const [currentNumber, setCurrentNumber] = useState<number>();
     const [currentScore, setCurrentScore] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState<number>(60);
+    const [timerOn, setTimerOn] = useState<boolean>(false);
+
     const [currentSelectedBox, setCurrentSelectedBox] = useState();
 
     const [isGameOverHidden, setIsGameOverHidden] = useState<boolean>(true);
@@ -44,18 +46,6 @@ function Game() {
     function resetPuzzle(){
         //get new puzzle from server, clear current guess rows, current row = 0, change number
     }
-
-    //Timer
-    useEffect(() => {
-        const interval = setTimeout(() => {
-            if(currentTime > 0){
-                var tempTime = currentTime;
-                setCurrentTime(tempTime-1);
-            }
-        }, 1000);
-        
-        
-    }, [currentTime]);
     
 
     return (
@@ -66,11 +56,12 @@ function Game() {
            <div className = "GameHeader">
                 <ScoreBoard score = {0}></ScoreBoard>
                 <TargetNumber number = {currentNumber}></TargetNumber>
-                <Timer time = {currentTime} setTime = {setCurrentTime}></Timer>
+                {/*Timer doesn't start until first guess*/ }
+                <Timer time = {currentTime} setTime = {setCurrentTime} timerOn = {timerOn}></Timer>
            </div>
            
            <div className='GameBoard'>
-                {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess}/>)}
+                {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess} setTimerOn = {setTimerOn}/>)}
            </div>
            
            <div className='GuessedNumbersRow'>

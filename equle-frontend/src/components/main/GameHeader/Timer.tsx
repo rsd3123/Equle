@@ -7,15 +7,17 @@ function Timer(props:any) {
     //Timer function- if time > 0, every second decrease time by one with setTime(time-1)
    //Timer
    useEffect(() => {
-    const interval = setTimeout(() => {
-        if(props.time > 0){
-            var tempTime = props.time;
-            props.setTime(tempTime-1);
-        }
-    }, 1000);
+
+    if(props.timerOn){
+        const interval = setTimeout(() => {
+            if(props.time > 0){
+                var tempTime = props.time;
+                props.setTime(tempTime-1);
+            }
+        }, 1000);
+    }
     
-    
-}, [props.time]);
+}, [props.time, props.timerOn]);
 
     return (
         <div className="Timer">
