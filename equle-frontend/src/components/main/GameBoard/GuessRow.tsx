@@ -10,7 +10,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         props.setTimerOn(true);
         
         const newValues = boxValues.map((value,i) =>{
-            if(i == event.target.id){
+            if(iToKey(i) == event.target.id){
                 return event.target.value;
             }
             else{
@@ -36,11 +36,31 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         }
 
     }, [boxValues]);
+
+    //Clear row on end game
+    useEffect(()=>{
+
+        clearRow();
+
+        //Clear Game Board
+        for(var i = 0; i < numBoxes; i++){
+            (document.getElementById(iToKey(i).toString())as HTMLInputElement).value = "";
+        }
+
+    },[props.isGameOverHidden])
     
+    function clearRow(){
+        setBoxValues(new Array(numBoxes).fill(''))
+        //For each input set input vaue to ''
+    }
+
+    function iToKey(i:number){
+        return i+10+(10*props.id);
+    }
     
     return (
         <div className="GuessRow">
-            {Array(numBoxes).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {i+10+(10*props.id)} id = {i.toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} autoComplete="off"/>)}
+            {Array(numBoxes).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} autoComplete="off"/>)}
         </div>
     );
 }

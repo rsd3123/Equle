@@ -15,7 +15,12 @@ function Timer(props:any) {
                 props.setTime(tempTime-1);
             }
         }, 1000);
-    }
+
+        //When time is 0, set endGame to true
+        if(props.time == 0){
+            props.setIsGameOverHidden(false);
+        }
+   }
     
 }, [props.time, props.timerOn]);
 

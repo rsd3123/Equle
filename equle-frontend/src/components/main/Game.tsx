@@ -8,11 +8,13 @@ import Timer from './GameHeader/Timer';
 import GameOverOverlay from './GameOverOverlay';
 
 function Game() {
+    const startTime = 10;
+    
     const [currentRow, setCurrentRow] = useState<number>(-1);
     const [currentGuess, setCurrentGuess] = useState<string>('');
     const [currentNumber, setCurrentNumber] = useState<number>();
     const [currentScore, setCurrentScore] = useState<number>(0);
-    const [currentTime, setCurrentTime] = useState<number>(60);
+    const [currentTime, setCurrentTime] = useState<number>(startTime);
     const [timerOn, setTimerOn] = useState<boolean>(false);
 
     const [currentSelectedBox, setCurrentSelectedBox] = useState();
@@ -41,27 +43,35 @@ function Game() {
         if(currentRow+1<=numRows){
             setCurrentRow(currentRow+1);
         }
+
     }, [currentGuess]);
     
     function resetPuzzle(){
         //get new puzzle from server, clear current guess rows, current row = 0, change number
+        setCurrentRow(-1);
+        setCurrentGuess('');
+        setCurrentScore(0);
+        setCurrentTime(startTime);
+        setTimerOn(false);
+        
+
+        setIsGameOverHidden(true);
     }
     
-
     return (
         <div className="Game">
 
-            <GameOverOverlay isHidden = {isGameOverHidden} score = {currentScore}></GameOverOverlay>
+            <GameOverOverlay isHidden = {isGameOverHidden} score = {currentScore} resetGame = {resetPuzzle}></GameOverOverlay>
            
            <div className = "GameHeader">
                 <ScoreBoard score = {0}></ScoreBoard>
                 <TargetNumber number = {currentNumber}></TargetNumber>
                 {/*Timer doesn't start until first guess*/ }
-                <Timer time = {currentTime} setTime = {setCurrentTime} timerOn = {timerOn}></Timer>
+                <Timer time = {currentTime} setTime = {setCurrentTime} timerOn = {timerOn} setIsGameOverHidden = {setIsGameOverHidden}></Timer>
            </div>
            
            <div className='GameBoard'>
-                {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess} setTimerOn = {setTimerOn}/>)}
+                {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess} setTimerOn = {setTimerOn} isGameOverHidden = {isGameOverHidden}/>)}
            </div>
            
            <div className='GuessedNumbersRow'>
