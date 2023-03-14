@@ -5,9 +5,7 @@ import './Main.css';
 
 function Main(props:any) {
     
-    useEffect(() => {
-        //get session id from server
-    }, []);
+    
 
     return (
         <div className="Main">

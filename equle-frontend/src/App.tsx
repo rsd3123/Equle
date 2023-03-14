@@ -9,6 +9,18 @@ function App() {
   const [isOverlayHidden, setIsOverlayHidden] = useState(true);
   const [isLeaderboardHidden, setIsLeaderboardHidden] = useState(true);
 
+  useEffect(() => {
+    //get session id from server
+    fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction')
+         .then((res) => res.json())
+         .then((data) => {
+            console.log(data);
+         })
+         .catch((err) => {
+            console.log(err.message);
+         });
+  }, []);
+
   return (
     <div className="App">
       
