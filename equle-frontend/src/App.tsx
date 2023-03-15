@@ -11,14 +11,12 @@ function App() {
 
   useEffect(() => {
     //get session id from server
-    fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction')
-         .then((res) => res.json())
-         .then((data) => {
-            console.log(data);
-         })
-         .catch((err) => {
-            console.log(err.message);
-         });
+    fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
+    method: 'POST',
+    body: JSON.stringify({ "req": "getSessionID" })
+    })
+   .then(response => response.json())
+   .then(response => console.log(JSON.stringify(response)))
   }, []);
 
   return (
