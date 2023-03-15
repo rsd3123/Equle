@@ -5,7 +5,6 @@ import './Main.css';
 
 function Main(props:any) {
     
-    
 
     return (
         <div className="Main">

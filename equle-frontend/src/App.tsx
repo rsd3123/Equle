@@ -8,24 +8,28 @@ function App() {
   
   const [isOverlayHidden, setIsOverlayHidden] = useState(true);
   const [isLeaderboardHidden, setIsLeaderboardHidden] = useState(true);
+  const [sessionID, setSessionID] = useState();
 
   useEffect(() => {
+
+    console.log("Get SessionID");
+
     //get session id from server
     fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
     method: 'POST',
     body: JSON.stringify({ "req": "getSessionID" })
     })
    .then(response => response.json())
-   .then(response => console.log(JSON.stringify(response)))
+   .then(response => setSessionID(response.sessionID))
+   
   }, []);
 
   return (
     <div className="App">
       
-
       <Sidebar isOverlayHidden = {isOverlayHidden} toggleOverlay = {() => {setIsOverlayHidden(!isOverlayHidden)}} setIsOverlayHidden = {setIsOverlayHidden} isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)}></Sidebar>
       <div className = "Spacer"></div>
-      <Main isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)}></Main>
+      <Main isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)} sessionID = {sessionID}></Main>
       
     </div>
   );
