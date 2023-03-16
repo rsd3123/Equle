@@ -3,7 +3,12 @@ import './GuessRow.css';
 
 function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const [numBoxes, setNumBoxes] = useState(props.length);
-    const [boxValues, setBoxValues] = useState<string[]>(new Array(numBoxes).fill(''))
+    const [boxValues, setBoxValues] = useState<string[]>(new Array(props.length).fill(''))
+
+    //Reset boxValues size on props.length change
+    useEffect(() => {
+        setBoxValues(new Array(props.length).fill(''));
+    }, [props.length]);
 
     const handleChange = (event:any) =>{
 
@@ -43,14 +48,14 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         clearRow();
 
         //Clear Game Board
-        for(var i = 0; i < numBoxes; i++){
+        for(var i = 0; i < props.length; i++){
             (document.getElementById(iToKey(i).toString())as HTMLInputElement).value = "";
         }
 
     },[props.isGameOverHidden])
     
     function clearRow(){
-        setBoxValues(new Array(numBoxes).fill(''))
+        setBoxValues(new Array(props.length).fill(''))
         //For each input set input vaue to ''
     }
 
@@ -60,7 +65,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     
     return (
         <div className="GuessRow">
-            {Array(numBoxes).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} autoComplete="off"/>)}
+            {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} autoComplete="off"/>)}
         </div>
     );
 }

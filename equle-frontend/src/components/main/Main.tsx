@@ -16,7 +16,7 @@ function Main(props:any) {
             <LeaderboardOverlay isHidden = {props.isLeaderboardHidden} toggleLeaderboard = {props.toggleLeaderboard}></LeaderboardOverlay>
             
             <div className = 'Main-Div' hidden = {!props.isLeaderboardHidden}>
-                <Game></Game>
+                <Game sessionId = {props.sessionID}></Game>
             </div>
             
     
