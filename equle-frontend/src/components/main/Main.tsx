@@ -4,6 +4,7 @@ import LeaderboardOverlay from './LeaderboardOverlay';
 import './Main.css';
 
 function Main(props:any) {
+
     
 
     return (
@@ -16,7 +17,7 @@ function Main(props:any) {
             <LeaderboardOverlay isHidden = {props.isLeaderboardHidden} toggleLeaderboard = {props.toggleLeaderboard}></LeaderboardOverlay>
             
             <div className = 'Main-Div' hidden = {!props.isLeaderboardHidden}>
-                <Game sessionId = {props.sessionID}></Game>
+                <Game sessionID = {props.sessionID}></Game>
             </div>
             
     

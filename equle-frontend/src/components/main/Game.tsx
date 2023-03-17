@@ -9,8 +9,8 @@ import GameOverOverlay from './GameOverOverlay';
 
 function Game(props:any) {
 
-    const startTime = 10;
-    
+    const startTime = 30;
+
     const [currentRow, setCurrentRow] = useState<number>(-1);
     const [currentGuess, setCurrentGuess] = useState<string>('');
     const [currentNumber, setCurrentNumber] = useState<number>();
@@ -29,24 +29,13 @@ function Game(props:any) {
     const yellow = 'yellow';
     const green = 'green';
 
-    //on first load, get puzzle from server
+    //on first load after sessionId is made, get puzzle from server
     useEffect(() => {
-        console.log("Get Puzzle");
-
-        fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
-        method: 'POST',
-        body: JSON.stringify({ "req": "generatePuzzle", "sessionID":props.sessionID})
-        })
-        .then(response => response.json())
-        .then(response => setPuzzle(response.number,response.solutionLength))
-
-    }, []);
-
-    function setPuzzle(number:number,length:number){
-        setCurrentNumber(number);
-        setNumBoxes(length);
-        console.log(length)
-    }
+        
+        if(props.sessionID != undefined){
+            getPuzzleFromLambda();
+        }
+    }, [props.sessionID]); //Should trigger twice, only triggers once.
 
     //When the current guess is updated, get check from server, then change color accordingly, and increment current row.
     //Get isMatch from server: returns [] of length numBoxes. each element in [] is either a 0 (wrong), 1, wrong place, or 2 (corrent num and place)
@@ -69,10 +58,35 @@ function Game(props:any) {
         setCurrentTime(startTime);
         setTimerOn(false);
         
-
+        getPuzzleFromLambda();
         setIsGameOverHidden(true);
     }
     
+    function setPuzzle(number:number,length:number){
+        setCurrentNumber(number);
+        setNumBoxes(length);
+        setCurrentRow(0);
+        console.log(length)
+    }
+
+    function getPuzzleFromLambda(){
+        console.log("Get Puzzle");
+
+        let puzzleData = {
+            req:"generatePuzzle", 
+            sessionID: props.sessionID
+        };
+
+        console.log("String data: " + JSON.stringify(puzzleData));
+
+        fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
+        method: 'POST',
+        body: JSON.stringify(puzzleData)
+        })
+        .then(response => response.json())
+        .then(response => setPuzzle(response.number,response.solutionLength))
+    }
+
     return (
         <div className="Game">
 
