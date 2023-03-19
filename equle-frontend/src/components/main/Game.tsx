@@ -18,7 +18,7 @@ function Game(props:any) {
     const [currentTime, setCurrentTime] = useState<number>(startTime);
     const [timerOn, setTimerOn] = useState<boolean>(false);
 
-    const [currentSelectedBox, setCurrentSelectedBox] = useState();
+    const [charCorrect, setCharCorrect] = useState<boolean[]>([]);
 
     const [isGameOverHidden, setIsGameOverHidden] = useState<boolean>(true);
 
@@ -40,15 +40,27 @@ function Game(props:any) {
     //When the current guess is updated, get check from server, then change color accordingly, and increment current row.
     //Get isMatch from server: returns [] of length numBoxes. each element in [] is either a 0 (wrong), 1, wrong place, or 2 (corrent num and place)
     useEffect(() => {
-        console.log(currentGuess);
+        if(currentGuess.length != 0){
+            console.log(currentGuess);
 
-        //Send current guess to server, check if match. If not match, change colors accordingly or end game & show end screen. If match, score += 1, timer += 60 seconds, reset squares, reset puzzle.
+            //Send current guess to server, check if match. If not match, change colors accordingly or end game & show end screen. If match, score += 1, timer += 60 seconds, reset squares, reset puzzle.
+            sendGuessToLambda(currentGuess)
 
-        if(currentRow+1<=numRows){
-            setCurrentRow(currentRow+1);
+            
+            if(currentRow+1<=numRows){
+                setCurrentRow(currentRow+1);
+            }
         }
-
     }, [currentGuess]);
+
+    useEffect(() => {
+        //Change color when charCorrect is changed and not undefined.
+        if(charCorrect.length != 0){
+            for(var i = 0; i < charCorrect.length; i++){
+
+            }
+        }
+    }, [charCorrect]);
     
     function resetPuzzle(){
         //get new puzzle from server, clear current guess rows, current row = 0, change number
@@ -85,6 +97,23 @@ function Game(props:any) {
         })
         .then(response => response.json())
         .then(response => setPuzzle(response.number,response.solutionLength))
+    }
+
+    function sendGuessToLambda(guess:any){
+        console.log("Get Puzzle");
+
+        let puzzleData = {
+            req:"checkAnswer", 
+            sessionID: props.sessionID,
+            guess:guess
+        };
+
+        fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
+        method: 'POST',
+        body: JSON.stringify(puzzleData)
+        })
+        .then(response => response.json())
+        .then(response => setCharCorrect(response.isCharCorrect))
     }
 
     return (
