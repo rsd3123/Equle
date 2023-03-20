@@ -30,12 +30,12 @@ function Game(props:any) {
     const yellow = 'yellow';
     const green = 'green';
 
-    //on first load after sessionId is made, get puzzle from server
+    //on first load get puzzle 
     useEffect(() => {  
         
         generatePuzzle()
     
-    }, []); //Should trigger twice, only triggers once.
+    }, []); 
 
     //When guess is updated, check guess to answer (calls next uef)
     useEffect(() => {
@@ -77,6 +77,7 @@ function Game(props:any) {
         }
     }, [charCorrect]);
     
+    //Check which parts of the guess matches the answer
     function checkAnswer(){
             
         var length = solution.toString().length;

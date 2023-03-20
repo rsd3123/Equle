@@ -4,17 +4,24 @@ import './GuessRow.css';
 function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const [numBoxes, setNumBoxes] = useState(props.length);
     const [boxValues, setBoxValues] = useState<string[]>(new Array(props.length).fill(''))
+    
 
     const disabledColor = "gray";
     const defaultColor = "white";
     const correctColor = "green";
+    
+    const [color, setColor] = useState<string[]>(new Array(props.length).fill((props.id == 0?defaultColor:disabledColor)));
      
     //On new guess, change color of square
     useEffect(() => {
         if(props.id == props.currentRow){
             for(var i = 0; i < props.length; i++){
                 if(props.charCorrect[i]){
-                    (document.getElementById((iToKey(i)-10).toString())as HTMLInputElement).style.backgroundColor = correctColor;
+                    //(document.getElementById((iToKey(i)).toString())as HTMLInputElement).style.backgroundColor = correctColor;
+                    console.log("correct color");
+                    var temp = color;
+                    temp[i] = correctColor
+                    setColor(temp); 
                 }
             }
         }
@@ -85,13 +92,24 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         //For each input set input vaue to ''
     }
 
+    useEffect(() => {
+        if(props.currentRow == props.id){
+            var temp = color;
+            for(var i = 0; i < props.length; i++){    
+                temp[i] = defaultColor; 
+            }
+            setColor(temp);
+        }
+
+    }, [props.currentRow]);
+
     function iToKey(i:number){
         return i+10+(10*props.id);
     }
     
     return (
         <div className="GuessRow">
-            {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} style = {{backgroundColor:(props.id == props.currentRow?"white":"gray")}} autoComplete="off"/>)}
+            {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} style = {{backgroundColor:color[i]}} autoComplete="off"/>)}
         </div>
     );
 }
