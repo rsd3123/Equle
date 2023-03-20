@@ -24,7 +24,7 @@ function Game(props:any) {
     const [isGameOverHidden, setIsGameOverHidden] = useState<boolean>(true);
 
     const [numBoxes, setNumBoxes] = useState<number>(0); // get init from server- 3 <= length <= 7
-    const [numRows, setNumRows] = useState<number>(5); // get init from server
+    const [numRows, setNumRows] = useState<number>(6); // get init from server
 
     //Colors to change boxes
     const yellow = 'yellow';
@@ -47,7 +47,11 @@ function Game(props:any) {
             //sendGuessToLambda(currentGuess)
             checkAnswer();
             
-            if(currentRow+1<=numRows){
+            //If game is lost due to board full
+            if(currentRow+1 > numRows){
+                setIsGameOverHidden(false);
+            }
+            else{
                 setCurrentRow(currentRow+1);
             }
         }
@@ -58,20 +62,20 @@ function Game(props:any) {
         var allCorrect = true;
         if(charCorrect != undefined && charCorrect.length != 0){
             for(var i = 0; i < charCorrect.length; i++){
-                if(charCorrect[i]){
-                    //change box color to green
-                }
-                else{
+                if(!charCorrect[i]){
                     allCorrect = false;
                 }
             }
             
+            //If game is won
             if(allCorrect){
                 var temp = currentScore + 1;
                 setCurrentScore(temp);
                 
                 var time = currentTime + startTime;
                 setCurrentTime(time);
+
+                generatePuzzle();
             }
         }
     }, [charCorrect]);
@@ -90,7 +94,6 @@ function Game(props:any) {
     
         setCharCorrect(isCharCorrect);
     }
-
 
     function resetPuzzle(){
         //get new puzzle from server, clear current guess rows, current row = 0, change number
@@ -210,14 +213,14 @@ function Game(props:any) {
             <GameOverOverlay isHidden = {isGameOverHidden} score = {currentScore} resetGame = {resetPuzzle}></GameOverOverlay>
            
            <div className = "GameHeader">
-                <ScoreBoard score = {0}></ScoreBoard>
+                <ScoreBoard score = {currentScore}></ScoreBoard>
                 <TargetNumber number = {currentNumber}></TargetNumber>
                 {/*Timer doesn't start until first guess*/ }
                 <Timer time = {currentTime} setTime = {setCurrentTime} timerOn = {timerOn} setIsGameOverHidden = {setIsGameOverHidden}></Timer>
            </div>
            
            <div className='GameBoard'>
-                {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess} setTimerOn = {setTimerOn} isGameOverHidden = {isGameOverHidden} charCorrect = {charCorrect}/>)}
+                {Array(numRows).fill(true).map((_, i) => <GuessRow key = {i} id = {i} length = {numBoxes} currentRow = {currentRow} setCurrentGuess = {setCurrentGuess} setTimerOn = {setTimerOn} isGameOverHidden = {isGameOverHidden} charCorrect = {charCorrect} score = {currentScore}/>)}
            </div>
            
            <div className='GuessedNumbersRow'>

@@ -68,10 +68,19 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
             let key = iToKey(i).toString();
             (document.getElementById(key)as HTMLInputElement).value = "";
             
-            (document.getElementById(key)as HTMLInputElement).style.backgroundColor = defaultColor;
+            
+            if(props.id == 0){
+                (document.getElementById(key)as HTMLInputElement).style.backgroundColor = defaultColor;
+            }
+            else{
+                (document.getElementById(key)as HTMLInputElement).style.backgroundColor = disabledColor;
+            }
+            
         }
 
-    },[props.isGameOverHidden])
+        console.log("in clear board");
+
+    },[props.isGameOverHidden, props.score])
     
     function clearRow(){
         setBoxValues(new Array(props.length).fill(''))
@@ -84,7 +93,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     
     return (
         <div className="GuessRow">
-            {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} autoComplete="off"/>)}
+            {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} style = {{backgroundColor:(props.id == props.currentRow?"white":"gray")}} autoComplete="off"/>)}
         </div>
     );
 }
