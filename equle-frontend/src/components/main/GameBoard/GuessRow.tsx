@@ -9,7 +9,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const defaultColor = "white";
     const correctColor = "green";
      
-
+    //On new guess, change color of square
     useEffect(() => {
         if(props.id == props.currentRow){
             for(var i = 0; i < props.length; i++){
@@ -20,12 +20,12 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         }
     }, [props.charCorrect]);
     
-
     //Reset boxValues size on props.length change
     useEffect(() => {
         setBoxValues(new Array(props.length).fill(''));
     }, [props.length]);
 
+    //Handle user input
     const handleChange = (event:any) =>{
 
         props.setTimerOn(true);
@@ -42,7 +42,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         setBoxValues(newValues);
     }
     
-    //If all boxes have values
+    //If all boxes have values, update the current guess
     useEffect(() => {
         var filled = true;
         for(let i = 0; i < boxValues.length; i++){
@@ -68,7 +68,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
             let key = iToKey(i).toString();
             (document.getElementById(key)as HTMLInputElement).value = "";
             
-            
+            //Change color of squares back to original colors.
             if(props.id == 0){
                 (document.getElementById(key)as HTMLInputElement).style.backgroundColor = defaultColor;
             }
@@ -77,8 +77,6 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
             }
             
         }
-
-        console.log("in clear board");
 
     },[props.isGameOverHidden, props.score])
     

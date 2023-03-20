@@ -37,28 +37,17 @@ function Game(props:any) {
     
     }, []); //Should trigger twice, only triggers once.
 
-    //When the current guess is updated, get check from server, then change color accordingly, and increment current row.
-    //Get isMatch from server: returns [] of length numBoxes. each element in [] is either a 0 (wrong), 1, wrong place, or 2 (corrent num and place)
+    //When guess is updated, check guess to answer (calls next uef)
     useEffect(() => {
         if(currentGuess.length != 0){
             console.log(currentGuess);
-
-            //Send current guess to server, check if match. If not match, change colors accordingly or end game & show end screen. If match, score += 1, timer += 60 seconds, reset squares, reset puzzle.
-            //sendGuessToLambda(currentGuess)
             checkAnswer();
-            
-            //If game is lost due to board full
-            if(currentRow+1 > numRows){
-                setIsGameOverHidden(false);
-            }
-            else{
-                setCurrentRow(currentRow+1);
-            }
         }
     }, [currentGuess]);
 
+    //On new guess
     useEffect(() => {
-        //Change color when charCorrect is changed and not undefined.
+        //Change color when charCorrect is changed and not undefined. Color is changed in GuessRow.tsx
         var allCorrect = true;
         if(charCorrect != undefined && charCorrect.length != 0){
             for(var i = 0; i < charCorrect.length; i++){
@@ -67,8 +56,7 @@ function Game(props:any) {
                 }
             }
             
-            //If game is won
-            if(allCorrect){
+            if(allCorrect){ //If guess correct
                 var temp = currentScore + 1;
                 setCurrentScore(temp);
                 
@@ -76,6 +64,15 @@ function Game(props:any) {
                 setCurrentTime(time);
 
                 generatePuzzle();
+            }
+            else{ //If guess not correct
+                //If game is lost due to board full
+                if(currentRow+1 > numRows){
+                    setIsGameOverHidden(false);
+                }
+                else{
+                    setCurrentRow(currentRow+1);
+                }
             }
         }
     }, [charCorrect]);
@@ -95,6 +92,7 @@ function Game(props:any) {
         setCharCorrect(isCharCorrect);
     }
 
+    //Reset puzzle on start new game only
     function resetPuzzle(){
         //get new puzzle from server, clear current guess rows, current row = 0, change number
         setCurrentRow(-1);
@@ -110,6 +108,7 @@ function Game(props:any) {
     
     const signs = ['+','-','*','/'];
 
+    //Generate & set new puzzle.
     function generatePuzzle(){
         //Generate random number as puzzle hint
         var number = randomIntFromInterval(1,999);
@@ -159,11 +158,8 @@ function Game(props:any) {
         //Return the generated number and the length of the answer
         setPuzzle(number,length);
     }
-    
-    function randomIntFromInterval(min:number, max:number) { // min and max included 
-        return Math.floor(Math.random() * (max - min + 1) + min)
-      }
-    
+        
+    //Set new puzzle. Called from generatePuzzle
     function setPuzzle(number:number,length:number){
         setCurrentNumber(number);
         setNumBoxes(length);
@@ -171,6 +167,10 @@ function Game(props:any) {
         console.log(length)
     }
 
+    //Helper function that generates random intergers in the given range.
+    function randomIntFromInterval(min:number, max:number) { // min and max included 
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
     /*
     function getPuzzleFromLambda(){
         console.log("Get Puzzle");
