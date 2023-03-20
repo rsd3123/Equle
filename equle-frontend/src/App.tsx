@@ -10,6 +10,7 @@ function App() {
   const [isLeaderboardHidden, setIsLeaderboardHidden] = useState(true);
   const [sessionID, setSessionID] = useState();
 
+  /*
   useEffect(() => {
 
     console.log("Get SessionID");
@@ -23,13 +24,14 @@ function App() {
    .then(response => setSessionID(response.sessionID))
    
   }, []);
+  */
 
   return (
     <div className="App">
       
       <Sidebar isOverlayHidden = {isOverlayHidden} toggleOverlay = {() => {setIsOverlayHidden(!isOverlayHidden)}} setIsOverlayHidden = {setIsOverlayHidden} isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)}></Sidebar>
       <div className = "Spacer"></div>
-      <Main isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)} sessionID = {sessionID}></Main>
+      <Main isLeaderboardHidden = {isLeaderboardHidden} toggleLeaderboard = {() => setIsLeaderboardHidden(!isLeaderboardHidden)}></Main>
       
     </div>
   );

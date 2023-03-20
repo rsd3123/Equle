@@ -5,6 +5,22 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const [numBoxes, setNumBoxes] = useState(props.length);
     const [boxValues, setBoxValues] = useState<string[]>(new Array(props.length).fill(''))
 
+    const disabledColor = "gray";
+    const defaultColor = "white";
+    const correctColor = "green";
+     
+
+    useEffect(() => {
+        if(props.id == props.currentRow){
+            for(var i = 0; i < props.length; i++){
+                if(props.charCorrect[i]){
+                    (document.getElementById((iToKey(i)-10).toString())as HTMLInputElement).style.backgroundColor = correctColor;
+                }
+            }
+        }
+    }, [props.charCorrect]);
+    
+
     //Reset boxValues size on props.length change
     useEffect(() => {
         setBoxValues(new Array(props.length).fill(''));
@@ -49,7 +65,10 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
 
         //Clear Game Board
         for(var i = 0; i < props.length; i++){
-            (document.getElementById(iToKey(i).toString())as HTMLInputElement).value = "";
+            let key = iToKey(i).toString();
+            (document.getElementById(key)as HTMLInputElement).value = "";
+            
+            (document.getElementById(key)as HTMLInputElement).style.backgroundColor = defaultColor;
         }
 
     },[props.isGameOverHidden])
