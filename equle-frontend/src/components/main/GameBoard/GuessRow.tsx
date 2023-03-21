@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './GuessRow.css';
+import $ from 'jquery';
 
 function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const [numBoxes, setNumBoxes] = useState(props.length);
@@ -106,10 +107,28 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     function iToKey(i:number){
         return i+10+(10*props.id);
     }
-    
+
+    //Auto tab function
+    function autoTab(e:any){
+        const BACKSPACE_KEY = 8;
+        const DELETE_KEY = 46;
+        let tabindex = $(e.target).attr("tabindex") || 0;
+        tabindex = Number(tabindex);
+        if (e.keyCode === BACKSPACE_KEY) {
+          tabindex -= 1;
+        } else if (e.keyCode !== DELETE_KEY) {
+          tabindex += 1;
+        }
+        const elem = $("[tabindex=" + tabindex + "]");
+        if (elem[0]) {
+          elem.focus();
+        }
+        
+      };
+
     return (
         <div className="GuessRow">
-            {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} style = {{backgroundColor:color[i]}} autoComplete="off"/>)}
+            {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} style = {{backgroundColor:color[i]}} autoComplete="off" onKeyUp={autoTab} tabIndex = {iToKey(i)}/>)}
         </div>
     );
 }

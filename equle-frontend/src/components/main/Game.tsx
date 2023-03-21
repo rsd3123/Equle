@@ -8,6 +8,18 @@ import TargetNumber from './GameHeader/TargetNumber';
 import Timer from './GameHeader/Timer';
 import GameOverOverlay from './GameOverOverlay';
 
+/* TO DO:   1: Fix multiplication / subtraction (or get rid of them)
+            2: Add yellow squares for semi-correct guess
+            3: Make sure Guessed Numbers bar is correct color
+            4: Auto-tab feature
+            5: Change extended sidebar (rules, author info) to overlay popup like leaderboard
+            6: Finish Game Over Leaderboard buttons
+            7: Leaderboard -> lambda -> RDS connections
+            8: Populating leaderboard
+            9: Change icons to white
+            10: Host on cloudfront under rudolphdesanti.com domain
+            11: General Bug fixes 
+*/
 function Game(props:any) {
 
     const startTime = 120;
@@ -228,7 +240,6 @@ function Game(props:any) {
             <GameOverOverlay isHidden = {isGameOverHidden} score = {currentScore} resetGame = {resetPuzzle}></GameOverOverlay>
            
            <div className = "GameHeader">
-                
                 <TargetNumber number = {currentNumber}></TargetNumber>
                 <ScoreBoard score = {currentScore}></ScoreBoard>
                 {/*Include Timer? Doesn't make sense. Timer doesn't start until first guess*/ }
