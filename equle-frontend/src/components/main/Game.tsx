@@ -9,7 +9,6 @@ import Timer from './GameHeader/Timer';
 import GameOverOverlay from './GameOverOverlay';
 
 /* TO DO:   1: Fix multiplication / subtraction (or get rid of them)
-            2: Add yellow squares for semi-correct guess
             3: Make sure Guessed Numbers bar is correct color
             5: Change extended sidebar (rules, author info) to overlay popup like leaderboard
             6: Finish Game Over Leaderboard buttons
@@ -115,6 +114,7 @@ function Game(props:any) {
         for(var i = 0; i < length; i++){
             if(tempLeft[getKey(currentGuess[i])] > 0 && isCharCorrect[i] != 2){
                 isCharCorrect[i] = 1;
+                tempLeft[getKey(currentGuess[i])]--;
             }
         }
 

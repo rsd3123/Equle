@@ -114,9 +114,11 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     function autoTab(e:any){
         const BACKSPACE_KEY = 8;
         const DELETE_KEY = 46;
+        const SHIFT_KEY = 16
+
         let tabindex = $(e.target).attr("tabindex") || 0;
         tabindex = Number(tabindex);
-        if (e.keyCode === BACKSPACE_KEY) {
+        if (e.keyCode === BACKSPACE_KEY || e.keyCode === SHIFT_KEY) {
           tabindex -= 1;
         } else if (e.keyCode !== DELETE_KEY) {
           tabindex += 1;
