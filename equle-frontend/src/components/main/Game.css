@@ -23,12 +23,11 @@
     align-items: center;
     text-align: center;
     
-    justify-content: space-evenly;
+    justify-content:flex-start;
     
     padding-top:20px;
     padding-bottom: 20px;
 
-   
 
     background-color: #282c34;
     color:whitesmoke;

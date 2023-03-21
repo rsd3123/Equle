@@ -228,8 +228,9 @@ function Game(props:any) {
             <GameOverOverlay isHidden = {isGameOverHidden} score = {currentScore} resetGame = {resetPuzzle}></GameOverOverlay>
            
            <div className = "GameHeader">
-                <ScoreBoard score = {currentScore}></ScoreBoard>
+                
                 <TargetNumber number = {currentNumber}></TargetNumber>
+                <ScoreBoard score = {currentScore}></ScoreBoard>
                 {/*Include Timer? Doesn't make sense. Timer doesn't start until first guess*/ }
                 {/*<Timer time = {currentTime} setTime = {setCurrentTime} timerOn = {timerOn} setIsGameOverHidden = {setIsGameOverHidden} setTimerOn = {setTimerOn}></Timer>*/}
            </div>
