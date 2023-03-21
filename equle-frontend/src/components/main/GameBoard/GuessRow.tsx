@@ -11,24 +11,27 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const disabledColor = "gray";
     const defaultColor = "white";
     const correctColor = "#66FF99";
+    const semiCorrectColor = "yellow";
     
     const [color, setColor] = useState<string[]>(new Array(props.length).fill((props.id == 0?defaultColor:disabledColor)));
      
     //On new guess, change color of square
     useEffect(() => {
         if(props.id == props.currentRow){
+            var temp = [...color];
             for(var i = 0; i < props.length; i++){
-                if(props.charCorrect[i]){
-                    //(document.getElementById((iToKey(i)).toString())as HTMLInputElement).style.backgroundColor = correctColor;
-                    var temp = [...color];
+                if(props.charCorrect[i] == 2){ //Correct character in correct place
                     temp[i] = correctColor
-                    setColor(temp); 
+                }
+                else if(props.charCorrect[i] == 1){ //Correct character, wrong place
+                    temp[i] = semiCorrectColor;
                 }
             }
+
+            setColor(temp);
         }
     }, [props.charCorrect]);
-    
-    
+     
     //Handle user input
     const handleChange = (event:any) =>{
         
@@ -91,6 +94,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         //For each input set input vaue to ''
     }
 
+    //After complete guess, change color of next row to white
     useEffect(() => {
         if(props.currentRow == props.id){
             var temp = [...color];

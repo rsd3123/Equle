@@ -31,8 +31,9 @@ function Game(props:any) {
     const [timerOn, setTimerOn] = useState<boolean>(false);
     const [solved, setSolved] = useState<boolean>(false);
 
-    const [charCorrect, setCharCorrect] = useState<boolean[]>([]);
+    const [charCorrect, setCharCorrect] = useState<number[]>([]); //0 = wrong, 1 = semi, 2 = right
     const [solution, setSolution] = useState<String>("");
+    const [solutionCharLeft,setSolutionCharLeft] = useState<number[]>([]);
 
     const [isGameOverHidden, setIsGameOverHidden] = useState<boolean>(true);
 
@@ -67,7 +68,7 @@ function Game(props:any) {
         var allCorrect = true;
         if(charCorrect != undefined && charCorrect.length != 0){
             for(var i = 0; i < charCorrect.length; i++){
-                if(!charCorrect[i]){
+                if(charCorrect[i] != 2){
                     allCorrect = false;
                 }
             }
@@ -100,15 +101,23 @@ function Game(props:any) {
     function checkAnswer(){
             
         var length = solution.toString().length;
-        
-        var isCharCorrect = new Array(length).fill(false);
-        
+        var isCharCorrect = new Array(length).fill(0);
+        var tempLeft = [...solutionCharLeft];
+
+        //Check all those that are correct, subtract the correct from total
         for(var i = 0; i < length; i++){
             if(currentGuess[i] ==  solution.charAt(i)){
-                isCharCorrect[i] = true;
+                isCharCorrect[i] = 2;
+                tempLeft[getKey(currentGuess[i])]--;
             }
         }
-    
+        //Check all those that are correct in the wrong place
+        for(var i = 0; i < length; i++){
+            if(tempLeft[getKey(currentGuess[i])] > 0 && isCharCorrect[i] != 2){
+                isCharCorrect[i] = 1;
+            }
+        }
+
         setCharCorrect(isCharCorrect);
     }
 
@@ -119,9 +128,7 @@ function Game(props:any) {
         setCurrentGuess('');
         setCurrentScore(0);
         setCurrentTime(startTime);
-        
-        
-        //getPuzzleFromLambda();
+    
         generatePuzzle();
         setIsGameOverHidden(true);
     }
@@ -173,6 +180,15 @@ function Game(props:any) {
         console.log(solution);
         setSolution(solution);
 
+        var numOfCharactersLeft:number[] = new Array(14).fill(0);
+        for(let i = 0; i < solution.length; i++){
+            var key:number = getKey(solution.charAt(i));
+            
+            numOfCharactersLeft[key]++
+        }
+        
+        setSolutionCharLeft(numOfCharactersLeft);
+
         var length = solution.toString().length;
 
         if(length > 7){
@@ -184,16 +200,61 @@ function Game(props:any) {
         }
     }
         
+    function getKey(i:any){
+        var key = 0;
+        switch(i){
+            case '0':
+                key = 0;
+                break;
+            case '1':
+                key = 1;
+                break;
+            case '2':
+                key = 2;
+                break;
+            case '3':
+                key = 3;
+                break;
+            case '4':
+                key = 4;
+                break;
+            case '5':
+                key = 5;
+                break;
+            case '6':
+                key = 6;
+                break;
+            case '7':
+                key = 7;
+                break;
+            case '8':
+                key = 8;
+                break;
+            case '9':
+                key = 9;
+                break;
+            case '+':
+                key = 10;
+                break;
+            case '-':
+                key = 11;
+                break;
+            case '*':
+                key = 12;
+                break;
+            case '/':
+                key = 13;
+                break;
+        }
+
+        return key;
+    }
     //Set new puzzle. Called from generatePuzzle
-    function setPuzzle(number:number,length:number){
-       
-        
-            setCurrentNumber(number);
-            setNumBoxes(length);
-            setCurrentRow(0);
-            setTimerOn(true);
-        
-        console.log(length)
+    function setPuzzle(number:number,length:number){        
+        setCurrentNumber(number);
+        setNumBoxes(length);
+        setCurrentRow(0);
+        setTimerOn(true);
     }
 
     //Helper function that generates random intergers in the given range.
