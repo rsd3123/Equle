@@ -11,7 +11,6 @@ import GameOverOverlay from './GameOverOverlay';
 /* TO DO:   1: Fix multiplication / subtraction (or get rid of them)
             2: Add yellow squares for semi-correct guess
             3: Make sure Guessed Numbers bar is correct color
-            4: Auto-tab feature
             5: Change extended sidebar (rules, author info) to overlay popup like leaderboard
             6: Finish Game Over Leaderboard buttons
             7: Leaderboard -> lambda -> RDS connections
@@ -51,6 +50,9 @@ function Game(props:any) {
     
     }, []); 
 
+    useEffect(() => {
+        console.log("Current Row: " + currentRow);
+    }, [currentRow]);
     //When guess is updated, check guess to answer (calls next uef)
     useEffect(() => {
         if(currentGuess.length != 0){

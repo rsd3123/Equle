@@ -6,6 +6,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
     const [numBoxes, setNumBoxes] = useState(props.length);
     const [boxValues, setBoxValues] = useState<string[]>(new Array(props.length).fill(''))
     
+    const [row, setRow] = useState(Array(props.length));
 
     const disabledColor = "gray";
     const defaultColor = "white";
@@ -19,8 +20,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
             for(var i = 0; i < props.length; i++){
                 if(props.charCorrect[i]){
                     //(document.getElementById((iToKey(i)).toString())as HTMLInputElement).style.backgroundColor = correctColor;
-                    console.log("correct color");
-                    var temp = color;
+                    var temp = [...color];
                     temp[i] = correctColor
                     setColor(temp); 
                 }
@@ -28,25 +28,20 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         }
     }, [props.charCorrect]);
     
-    //Reset boxValues size on props.length change
-    useEffect(() => {
-        setBoxValues(new Array(props.length).fill(''));
-    }, [props.length]);
-
+    
     //Handle user input
     const handleChange = (event:any) =>{
-
-        props.setTimerOn(true);
         
         const newValues = boxValues.map((value,i) =>{
+            console.log("loop")
             if(iToKey(i) == event.target.id){
+                console.log("Found")
                 return event.target.value;
             }
             else{
                 return value;
             }
         });
-
         setBoxValues(newValues);
     }
     
@@ -72,18 +67,21 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         clearRow();
 
         //Clear Game Board
+        var temp = [...color]
         for(var i = 0; i < props.length; i++){
             let key = iToKey(i).toString();
             (document.getElementById(key)as HTMLInputElement).value = "";
             
             //Change color of squares back to original colors.
             if(props.id == 0){
-                (document.getElementById(key)as HTMLInputElement).style.backgroundColor = defaultColor;
+                temp[i] = defaultColor;
             }
             else{
-                (document.getElementById(key)as HTMLInputElement).style.backgroundColor = disabledColor;
+                //(document.getElementById(key)as HTMLInputElement).style.backgroundColor = disabledColor;
+                temp[i] = disabledColor;
             }
             
+            setColor(temp);
         }
 
     },[props.isGameOverHidden, props.score])
@@ -95,7 +93,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
 
     useEffect(() => {
         if(props.currentRow == props.id){
-            var temp = color;
+            var temp = [...color];
             for(var i = 0; i < props.length; i++){    
                 temp[i] = defaultColor; 
             }
@@ -126,9 +124,14 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
         
       };
 
+    useEffect(() => {
+        setBoxValues(new Array(props.length).fill(''));
+    }, [props.length]);
+
     return (
         <div className="GuessRow">
             {Array(props.length).fill(true).map((_, i) => <input className = "Box" type='text' maxLength={1} key = {iToKey(i)} id = {iToKey(i).toString()} disabled = {(props.id == props.currentRow?false:true)} onChange = {handleChange} style = {{backgroundColor:color[i]}} autoComplete="off" onKeyUp={autoTab} tabIndex = {iToKey(i)}/>)}
+            {}
         </div>
     );
 }
