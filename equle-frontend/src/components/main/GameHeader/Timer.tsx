@@ -12,13 +12,17 @@ function Timer(props:any) {
         const interval = setTimeout(() => {
             if(props.time > 0){
                 var tempTime = props.time;
+                
                 props.setTime(tempTime-1);
+                
+                console.log("Time: " + tempTime)
             }
         }, 1000);
 
         //When time is 0, set endGame to true
         if(props.time == 0){
             props.setIsGameOverHidden(false);
+            props.setTimerOn(false);
         }
    }
     

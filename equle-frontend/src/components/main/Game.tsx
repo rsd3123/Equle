@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { setTimeout } from 'timers/promises';
 import './Game.css';
 import GuessedNumbers from './GameBoard/GuessedNumbers';
 import GuessRow from './GameBoard/GuessRow';
@@ -17,6 +18,7 @@ function Game(props:any) {
     const [currentScore, setCurrentScore] = useState<number>(0);
     const [currentTime, setCurrentTime] = useState<number>(startTime);
     const [timerOn, setTimerOn] = useState<boolean>(false);
+    const [solved, setSolved] = useState<boolean>(false);
 
     const [charCorrect, setCharCorrect] = useState<boolean[]>([]);
     const [solution, setSolution] = useState<String>("");
@@ -32,7 +34,7 @@ function Game(props:any) {
 
     //on first load get puzzle 
     useEffect(() => {  
-        
+        setTimerOn(false);
         generatePuzzle()
     
     }, []); 
@@ -60,15 +62,18 @@ function Game(props:any) {
                 var temp = currentScore + 1;
                 setCurrentScore(temp);
                 
+                //setTimerOn(false);
                 var time = currentTime + startTime;
+                setTimerOn(false);
                 setCurrentTime(time);
-
+                //setSolved(true);
                 generatePuzzle();
             }
             else{ //If guess not correct
                 //If game is lost due to board full
-                if(currentRow+1 > numRows){
+                if(currentRow+1 >= numRows){
                     setIsGameOverHidden(false);
+                    
                 }
                 else{
                     setCurrentRow(currentRow+1);
@@ -100,7 +105,7 @@ function Game(props:any) {
         setCurrentGuess('');
         setCurrentScore(0);
         setCurrentTime(startTime);
-        setTimerOn(false);
+        
         
         //getPuzzleFromLambda();
         generatePuzzle();
@@ -109,7 +114,7 @@ function Game(props:any) {
     
     const signs = ['+','-','*','/'];
 
-    //Generate & set new puzzle.
+    //Generate & set new puzzle. Call setTimerOn false before this
     function generatePuzzle(){
         //Generate random number as puzzle hint
         var number = randomIntFromInterval(1,999);
@@ -155,16 +160,25 @@ function Game(props:any) {
         setSolution(solution);
 
         var length = solution.toString().length;
-        
-        //Return the generated number and the length of the answer
-        setPuzzle(number,length);
+
+        if(length > 7){
+            generatePuzzle();
+        }
+        else{
+            //Return the generated number and the length of the answer
+            setPuzzle(number,length);
+        }
     }
         
     //Set new puzzle. Called from generatePuzzle
     function setPuzzle(number:number,length:number){
-        setCurrentNumber(number);
-        setNumBoxes(length);
-        setCurrentRow(0);
+       
+        
+            setCurrentNumber(number);
+            setNumBoxes(length);
+            setCurrentRow(0);
+            setTimerOn(true);
+        
         console.log(length)
     }
 
@@ -216,8 +230,8 @@ function Game(props:any) {
            <div className = "GameHeader">
                 <ScoreBoard score = {currentScore}></ScoreBoard>
                 <TargetNumber number = {currentNumber}></TargetNumber>
-                {/*Timer doesn't start until first guess*/ }
-                <Timer time = {currentTime} setTime = {setCurrentTime} timerOn = {timerOn} setIsGameOverHidden = {setIsGameOverHidden}></Timer>
+                {/*Include Timer? Doesn't make sense. Timer doesn't start until first guess*/ }
+                {/*<Timer time = {currentTime} setTime = {setCurrentTime} timerOn = {timerOn} setIsGameOverHidden = {setIsGameOverHidden} setTimerOn = {setTimerOn}></Timer>*/}
            </div>
            
            <div className='GameBoard'>

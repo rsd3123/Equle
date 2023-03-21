@@ -8,7 +8,7 @@ function GuessRow(props:any) { //Pass answer length as prop (props.length)
 
     const disabledColor = "gray";
     const defaultColor = "white";
-    const correctColor = "green";
+    const correctColor = "#66FF99";
     
     const [color, setColor] = useState<string[]>(new Array(props.length).fill((props.id == 0?defaultColor:disabledColor)));
      
