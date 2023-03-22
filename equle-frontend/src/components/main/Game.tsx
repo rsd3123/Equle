@@ -143,8 +143,8 @@ function Game(props:any) {
         var sign = signs[randomIntFromInterval(0,signs.length-1)];
         
         //Find two numbers, X and Y, s.t. (x sign y) = number
-        var x:number = 1;
-        var y:number = 1;
+        var x:number = -1;
+        var y:number = -1;
         switch (sign) {
             case '+':
                 // Addition
@@ -158,16 +158,16 @@ function Game(props:any) {
                 break;
             case '*':
                 // Multiplication - Make sure whole number
-                while(number%x != 0){
+                do{
                     x = randomIntFromInterval(0,number);
-                }
+                }while(number%x != 0);
                 y = number/x;
                 break;
             case '/':
                 // Division - Make sure whole 
-                while(number%y != 0){
+                do{
                     y = randomIntFromInterval(0,number);
-                }
+                }while(number%y != 0);
                 x = number*y;
                 break;
             default:
