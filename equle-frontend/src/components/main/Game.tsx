@@ -313,7 +313,7 @@ function Game(props:any) {
            </div>
            
            <div className='GuessedNumbersRow'>
-                <GuessedNumbers currentGuess = {currentGuess} charCorrect = {charCorrect}></GuessedNumbers>
+                <GuessedNumbers currentGuess = {currentGuess} charCorrect = {charCorrect} isGameOverHidden = {isGameOverHidden} score = {currentScore}></GuessedNumbers>
            </div>
            
         </div>

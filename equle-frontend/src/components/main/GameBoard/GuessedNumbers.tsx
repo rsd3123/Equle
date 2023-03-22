@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useDebugValue, useEffect, useState } from 'react';
 import GuessedNumberBox from './GuessedNumberBox';
 import './GuessedNumbers.css';
 
@@ -27,6 +27,10 @@ function GuessedNumbers(props:any) {
         setColors(temp);
 
     }, [props.charCorrect]);
+
+    useEffect(() => {
+        setColors(new Array(14).fill("white"))
+    }, [props.isGameOverHidden, props.score]);
 
     function getKey(i:any){
         var key = 0;
