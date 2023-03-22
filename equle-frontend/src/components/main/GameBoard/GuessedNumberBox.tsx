@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './GuessedNumberBox.css';
 
 function GuessedNumberBox(props:any) {
@@ -10,7 +10,7 @@ function GuessedNumberBox(props:any) {
 
     return (
         <div className="GuessedNumberBox">
-            <button className='BoxButton' onClick={handlePress}>
+            <button className='BoxButton' onClick={handlePress} style = {{backgroundColor:props.color}}>
                 <text>{props.value}</text>
            </button>
         </div>

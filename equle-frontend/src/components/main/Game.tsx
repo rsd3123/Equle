@@ -9,7 +9,6 @@ import Timer from './GameHeader/Timer';
 import GameOverOverlay from './GameOverOverlay';
 
 /* TO DO:   1: Fix multiplication / subtraction (or get rid of them)
-            3: Make sure Guessed Numbers bar is correct color
             5: Change extended sidebar (rules, author info) to overlay popup like leaderboard
             6: Finish Game Over Leaderboard buttons
             7: Leaderboard -> lambda -> RDS connections
@@ -314,7 +313,7 @@ function Game(props:any) {
            </div>
            
            <div className='GuessedNumbersRow'>
-                <GuessedNumbers></GuessedNumbers>
+                <GuessedNumbers currentGuess = {currentGuess} charCorrect = {charCorrect}></GuessedNumbers>
            </div>
            
         </div>
