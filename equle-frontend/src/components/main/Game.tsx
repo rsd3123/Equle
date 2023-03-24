@@ -8,9 +8,9 @@ import TargetNumber from './GameHeader/TargetNumber';
 import Timer from './GameHeader/Timer';
 import GameOverOverlay from './GameOverOverlay';
 
-/* TO DO:   1: Fix multiplication / subtraction (or get rid of them)
+/* TO DO:   4: Add animations 
             5: Change extended sidebar (rules, author info) to overlay popup like leaderboard
-            6: Finish Game Over Leaderboard buttons
+            6: Finish Game Over Leaderboard Form
             7: Leaderboard -> lambda -> RDS connections
             8: Populating leaderboard
             9: Change icons to white

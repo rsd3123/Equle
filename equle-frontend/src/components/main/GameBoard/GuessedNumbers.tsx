@@ -97,7 +97,7 @@ function GuessedNumbers(props:any) {
            <GuessedNumberBox value = '+' color = {colors[10]}></GuessedNumberBox>
            <GuessedNumberBox value = '-' color = {colors[11]}></GuessedNumberBox>
            <GuessedNumberBox value = 'x' color = {colors[12]}></GuessedNumberBox>
-           <GuessedNumberBox value = '%' color = {colors[13]}></GuessedNumberBox>
+           <GuessedNumberBox value = '/' color = {colors[13]}></GuessedNumberBox>
         </div>
     );
 }

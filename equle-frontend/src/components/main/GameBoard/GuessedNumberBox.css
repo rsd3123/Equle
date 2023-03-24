@@ -18,7 +18,7 @@
     width: 100%;
 
     background-color:whitesmoke;
-    border:none;
+    border:10px solid "black";
 
     font-size: 4vh;
 }
