@@ -2,7 +2,22 @@ import React, { useEffect, useState } from 'react';
 import './LeaderboardOverlay.css';
 
 function LeaderboardOverlay(props:any) {
-    console.log(props.isHidden);
+
+    function getLeaderboardFromLambda(){
+        let data = {
+            req:"getLeaderboard"
+        };
+
+        console.log("String data: " + JSON.stringify(data));
+
+        fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
+        method: 'POST',
+        body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(response => console.log(response))
+    }
+
     return (
         <div className="LeaderboardOverlay" style = {{display:(props.isHidden?'none':'flex')}}>
             <div className='Exit-Btn-Div'>

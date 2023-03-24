@@ -13,7 +13,7 @@ function GameOverOverlay(props:any) {
         setIsFormHidden(!isFormHidden);
     }
 
-    function handleLeaderboardSubmit(){
+    async function handleLeaderboardSubmit(){
         let data = {
             req:"updateLeaderboard", 
             name: (document.getElementById("fname")as HTMLInputElement).value,
@@ -21,15 +21,52 @@ function GameOverOverlay(props:any) {
         };
 
         console.log("String data: " + JSON.stringify(data));
+        var fromServer;
 
-        fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
-        method: 'POST',
-        body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(response => console.log(response))
-    
-        setIsFormHidden(true)
+        try{
+            await fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
+            method: 'POST',
+            body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(response => fromServer = response.affectedRows)
+
+            if(fromServer == 1){
+                changeSubmitButtonSuccess()
+                setTimeout(()=>{
+                    changeSubmitButtonDefault()
+                    setIsFormHidden(true)
+                },2000);
+            }
+            else{
+                changeSubmitButtonError()
+                setTimeout(()=>{
+                    changeSubmitButtonDefault()
+                },2000);
+            } 
+        }
+        catch(err){
+            changeSubmitButtonError()
+            setTimeout(()=>{
+                changeSubmitButtonDefault()
+            },2000);
+        }
+    }
+
+
+    function changeSubmitButtonDefault(){
+        (document.getElementById("submit")as HTMLInputElement).style.backgroundColor = "white";
+        (document.getElementById("submit")as HTMLInputElement).value = "Submit";
+    }
+
+    function changeSubmitButtonSuccess(){
+        (document.getElementById("submit")as HTMLInputElement).style.backgroundColor = "green";
+        (document.getElementById("submit")as HTMLInputElement).value = "Sent!";
+    }
+
+    function changeSubmitButtonError(){
+        (document.getElementById("submit")as HTMLInputElement).style.backgroundColor = "Red";
+        (document.getElementById("submit")as HTMLInputElement).value = "Error";
     }
 
     return (
@@ -45,7 +82,7 @@ function GameOverOverlay(props:any) {
                 <form className = "Form">
                     <label htmlFor="fname">Name:</label><br></br>
                     <input type="text" id="fname"></input><br></br>
-                    <input type="button" value = "Submit" onClick={handleLeaderboardSubmit}></input>
+                    <input type="button" id = "submit" value = "Submit" onClick={handleLeaderboardSubmit}></input>
                 </form>
             </div>
         </div>
