@@ -8,7 +8,7 @@
     
     
     border: 3px solid #282c34;
-    background-color: rgb(186, 213, 253);
+    background-color: #282c34;
 }
 
 .Header{
@@ -20,23 +20,32 @@
     justify-content: space-around;
     align-items: center;
 
-    border-bottom:2px solid #282c34;
+    
+    color:#a3a3a3;
+    font-weight: bold;
 }
 
 .RankingList{
     min-width: 100%;
-    min-height: 77.5%;
+    height:100%;
 
     display: grid;
     
     grid-column-start: 1;
     grid-column-end: 1;
     
+    /*
     grid-row-start: 1;
     grid-row-end: 10;
+    */
+    grid-template-rows: repeat(10, calc(100% / 10));
 
-    margin-top:1%;
-    margin-bottom:2%;
+    padding-top:1%;
+    padding-bottom:1%;
+
+    background-color: rgb(214, 214, 219);
+
+    overflow: auto;
 }
 
 .Exit-Btn-Div{
@@ -56,7 +65,13 @@
 .Exit-Btn:hover{
     background-color: #a3a3a3;
 }
-#Title{
-    font-size: 10vh;
+
+.Title{
+    font-size: 32px;
+    font-weight: bold;
+    
+    text-decoration: underline;
     text-align: center;
+    color:#a3a3a3;
+    
 }

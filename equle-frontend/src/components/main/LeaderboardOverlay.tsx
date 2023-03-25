@@ -40,7 +40,7 @@ function LeaderboardOverlay(props:any) {
             <div className='Exit-Btn-Div'>
                 <button className = 'Exit-Btn' onClick = {props.toggleLeaderboard}>X</button>
             </div>
-            <text id = "Title">Leaderboard</text>
+            <text className = "Title">Leaderboard</text>
             <div className = 'Header'>
                 <text>Rank</text>
                 <text>Name</text>

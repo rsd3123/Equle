@@ -23,8 +23,8 @@ function GameOverOverlay(props:any) {
     async function handleLeaderboardSubmit(){
         var name = (document.getElementById("fname")as HTMLInputElement).value;
 
-        if(name.length > 25){
-            alert("Name too long. 24 character limit.");
+        if(name.length > 12){
+            alert("Name too long. 12 character limit.");
             (document.getElementById("fname")as HTMLInputElement).value = "";
         }
         else if(name.length == 0){
