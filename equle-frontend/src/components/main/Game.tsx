@@ -10,10 +10,6 @@ import GameOverOverlay from './GameOverOverlay';
 
 /* TO DO:   4: Add animations 
             5: Change extended sidebar (rules, author info) to overlay popup like leaderboard
-            6: Finish Game Over Leaderboard Form
-            7: Leaderboard -> lambda -> RDS connections
-            8: Populating leaderboard
-            9: Change icons to white
             10: Host on cloudfront under rudolphdesanti.com domain
             11: General Bug fixes 
 */

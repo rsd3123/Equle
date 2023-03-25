@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './GameOverOverlay.css';
 
 function GameOverOverlay(props:any) {
     const [isFormHidden, setIsFormHidden] = useState<boolean>(true);
+    const [isFormDisabled, setIsFormDisabled] = useState<boolean>(false);
+
+    useEffect(() => {
+        setIsFormDisabled(false);
+        (document.getElementById("leaderboardBtn")as HTMLInputElement).innerHTML = "Submit to leaderboard";
+        (document.getElementById("leaderboardBtn")as HTMLInputElement).style.backgroundColor = "white"
+    }, [props.isHidden]);
 
     function handlePlayAgain(){
         props.resetGame()
@@ -19,6 +26,9 @@ function GameOverOverlay(props:any) {
         if(name.length > 25){
             alert("Name too long. 24 character limit.");
             (document.getElementById("fname")as HTMLInputElement).value = "";
+        }
+        else if(name.length == 0){
+            alert("Name too shot. Enter atleast 1 character please.");
         }
         else{
 
@@ -44,6 +54,9 @@ function GameOverOverlay(props:any) {
                     setTimeout(()=>{
                         changeSubmitButtonDefault()
                         setIsFormHidden(true)
+                        setIsFormDisabled(true);
+                        (document.getElementById("leaderboardBtn")as HTMLInputElement).innerHTML = "Submitted";
+                        (document.getElementById("leaderboardBtn")as HTMLInputElement).style.backgroundColor = "gray";
                     },2000);
                 }
                 else{
@@ -84,7 +97,7 @@ function GameOverOverlay(props:any) {
             <text id ="ScoreText">Score: {props.score}</text>
             <div className = "btn-div">
                 <button className = "GameOverButton" onClick = {handlePlayAgain}>Play Again</button>
-                <button className = "GameOverButton" onClick = {handleLeaderboardClick}>Submit to leaderboard</button>
+                <button className = "GameOverButton" id = "leaderboardBtn" onClick = {handleLeaderboardClick} disabled = {isFormDisabled}>Submit to leaderboard</button>
             </div>
 
             <div className = "LeaderboardForm" hidden = {isFormHidden}>
