@@ -1,28 +1,23 @@
 .Ranking{
-    border:1px solid black;
     text-align: center;
-}
-#Rank{
-    
-    grid-column-start: 1;
-    grid-column-end: 1;
 
-   
+    display: grid;
+
+    grid-template-columns: repeat(3, calc(100% / 3));
+
+    
+}
+
+#Rank{
+    grid-column: 1 / span 1;
+    /*border-right:2px solid #282c34;*/
 }
 
 #Name{
-    
-    grid-column-start: 2;
-    grid-column-end: 2;
-
-    
+    grid-column: 2 / span 1;
+    /*border-right:2px solid #282c34;*/
 }
 
 #Score{
-    
-
-    grid-column-start: 3;
-    grid-column-end: 3;
-
-    
+    grid-column: 3 / span 1;
 }

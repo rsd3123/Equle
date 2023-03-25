@@ -14,42 +14,51 @@ function GameOverOverlay(props:any) {
     }
 
     async function handleLeaderboardSubmit(){
-        let data = {
-            req:"updateLeaderboard", 
-            name: (document.getElementById("fname")as HTMLInputElement).value,
-            score: props.score
-        };
+        var name = (document.getElementById("fname")as HTMLInputElement).value;
 
-        console.log("String data: " + JSON.stringify(data));
-        var fromServer;
+        if(name.length > 25){
+            alert("Name too long. 24 character limit.");
+            (document.getElementById("fname")as HTMLInputElement).value = "";
+        }
+        else{
 
-        try{
-            await fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
-            method: 'POST',
-            body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(response => fromServer = response.affectedRows)
+            let data = {
+                req:"updateLeaderboard", 
+                name: (document.getElementById("fname")as HTMLInputElement).value,
+                score: props.score
+            };
 
-            if(fromServer == 1){
-                changeSubmitButtonSuccess()
-                setTimeout(()=>{
-                    changeSubmitButtonDefault()
-                    setIsFormHidden(true)
-                },2000);
+            console.log("String data: " + JSON.stringify(data));
+            var fromServer;
+
+            try{
+                await fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
+                method: 'POST',
+                body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(response => fromServer = response.affectedRows)
+
+                if(fromServer == 1){
+                    changeSubmitButtonSuccess()
+                    setTimeout(()=>{
+                        changeSubmitButtonDefault()
+                        setIsFormHidden(true)
+                    },2000);
+                }
+                else{
+                    changeSubmitButtonError()
+                    setTimeout(()=>{
+                        changeSubmitButtonDefault()
+                    },2000);
+                } 
             }
-            else{
+            catch(err){
                 changeSubmitButtonError()
                 setTimeout(()=>{
                     changeSubmitButtonDefault()
                 },2000);
-            } 
-        }
-        catch(err){
-            changeSubmitButtonError()
-            setTimeout(()=>{
-                changeSubmitButtonDefault()
-            },2000);
+            }
         }
     }
 
