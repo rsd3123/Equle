@@ -102,8 +102,8 @@ function GameOverOverlay(props:any) {
 
             <div className = "LeaderboardForm" hidden = {isFormHidden}>
                 <form className = "Form">
-                    <label htmlFor="fname">Name:</label><br></br>
-                    <input type="text" id="fname"></input><br></br>
+                    <label htmlFor="fname">Name:</label>
+                    <input type="text" id="fname"></input>
                     <input type="button" id = "submit" value = "Submit" onClick={handleLeaderboardSubmit}></input>
                 </form>
             </div>
