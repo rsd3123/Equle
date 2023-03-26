@@ -41,6 +41,9 @@
 .GameOverButton:hover{
     background-color: rgb(219, 218, 218);
 }
+#leaderboardBTN:hover{
+    background-color: rgb(219, 218, 218);
+}
 #GameOverText{
     margin-bottom: 2px;
     font-size: 8vh;
@@ -98,4 +101,8 @@
     background-color: rgb(251, 251, 251);
     color:#282c34;
     border-width: 1px;
+}
+
+.Form input[type=button]:hover{
+    background-color: rgb(219, 218, 218);
 }

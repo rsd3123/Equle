@@ -24,6 +24,9 @@
 }
 
 #Title{
-    font-size: 5vh;
+    font-size: 150%;
     color:#282c34;
+
+    font-weight: bold;
+    
 }
