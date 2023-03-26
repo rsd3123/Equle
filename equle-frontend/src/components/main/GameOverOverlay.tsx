@@ -42,6 +42,7 @@ function GameOverOverlay(props:any) {
             var fromServer;
 
             try{
+                changeSubmitButtonSending()
                 await fetch('https://0cfinbt23e.execute-api.us-east-1.amazonaws.com/default/equleFunction', {
                 method: 'POST',
                 body: JSON.stringify(data)
@@ -76,13 +77,18 @@ function GameOverOverlay(props:any) {
     }
 
 
+    function changeSubmitButtonSending(){
+        (document.getElementById("submit")as HTMLInputElement).style.backgroundColor = "gray";
+        (document.getElementById("submit")as HTMLInputElement).value = "Submitting...";
+    }
+
     function changeSubmitButtonDefault(){
         (document.getElementById("submit")as HTMLInputElement).style.backgroundColor = "white";
         (document.getElementById("submit")as HTMLInputElement).value = "Submit";
     }
 
     function changeSubmitButtonSuccess(){
-        (document.getElementById("submit")as HTMLInputElement).style.backgroundColor = "green";
+        (document.getElementById("submit")as HTMLInputElement).style.backgroundColor = "#66FF99";
         (document.getElementById("submit")as HTMLInputElement).value = "Sent!";
     }
 

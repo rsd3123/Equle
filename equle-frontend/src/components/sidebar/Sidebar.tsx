@@ -24,8 +24,8 @@ function Sidebar(props:any){
     return (
         <div className="Sidebar-full" ref={ref} style = {{minWidth: (props.isOverlayHidden?'10vh':'40vh')}}>
             <div className = "Sidebar">
-                <button className = 'Sidebar-btn' id = 'Sidebar-overlay-horz-btn' onClick={props.toggleOverlay} style = {{backgroundColor:(props.isOverlayHidden?'#282c34':'#a3a3a3')}}></button>
-                <button className = 'Sidebar-btn' id = 'Sidebar-leaderboard-btn' onClick={props.toggleLeaderboard} style = {{backgroundColor:(props.isLeaderboardHidden?'#282c34':'#a3a3a3')}}></button>
+                <button className = 'Sidebar-btn' id = 'Sidebar-leaderboard-btn' onClick={props.toggleLeaderboard}></button>
+                <button className = 'Sidebar-btn' id = 'Sidebar-overlay-horz-btn' onClick={props.toggleOverlay}></button>
             </div>
             <div className = "Extended" style = {{display: (props.isOverlayHidden?'none':'flex')}}>
                 <div className = "Textbox">
