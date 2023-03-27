@@ -5,6 +5,9 @@ function RulesOverlay(props:any) {
 
     return (
         <div className="RulesOverlay" style = {{display:props.isHidden?'none':'flex'}}>
+            <div className='Exit-Btn-Div'>
+                <button className = 'Exit-Btn' onClick = {props.toggleLeaderboard}>X</button>
+            </div>
             <div className = "Textbox">
                 <div className = "Rules">
                     <text className = "Heading"><b>Rules: </b></text>
