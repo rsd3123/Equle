@@ -9,9 +9,9 @@ import Timer from './GameHeader/Timer';
 import GameOverOverlay from './GameOverOverlay';
 
 /* TO DO:   4: Add animations 
-            5: Change extended sidebar (rules, author info) to overlay popup like leaderboard
             10: Host on cloudfront under rudolphdesanti.com domain
             11: General Bug fixes 
+            12: General CSS/visual changes
 */
 function Game(props:any) {
 

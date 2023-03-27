@@ -24,16 +24,15 @@ function Main(props:any) {
             <div className = 'Main-Div'>
                 <text id = 'Title'><b>Equle</b></text>
             </div>
+            <div className='Main-Body'>
+                <LeaderboardOverlay isHidden = {props.isLeaderboardHidden} toggleLeaderboard = {props.toggleLeaderboard}></LeaderboardOverlay>
 
-            <LeaderboardOverlay isHidden = {props.isLeaderboardHidden} toggleLeaderboard = {props.toggleLeaderboard}></LeaderboardOverlay>
-
-            <RulesOverlay isHidden = {props.isOverlayHidden} toggleOverlay = {props.toggleOverlay}></RulesOverlay>
-            
-            <div className = 'Main-Div' hidden = {(!props.isLeaderboardHidden || !props.isOverlayHidden)}>
-                <Game></Game>
+                <RulesOverlay isHidden = {props.isOverlayHidden} toggleOverlay = {props.toggleOverlay}></RulesOverlay>
+                
+                <div className = 'Main-Div' hidden = {(!props.isLeaderboardHidden || !props.isOverlayHidden)}>
+                    <Game></Game>
+                </div>
             </div>
-            
-    
         </div>
     );
 }
