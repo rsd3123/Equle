@@ -5,7 +5,17 @@ import './Main.css';
 import RulesOverlay from './RulesOverlay';
 
 function Main(props:any) {
+    useEffect(()=>{
+        if(props.isLeaderboardHidden == false){
+            props.setIsOverlayHidden(true);
+        }
+    },[props.isLeaderboardHidden]);
 
+    useEffect(()=>{
+        if(props.isOverlayHidden == false){
+            props.setIsLeaderboardHidden(true);
+        }
+    },[props.isOverlayHidden]);
     
 
     return (
