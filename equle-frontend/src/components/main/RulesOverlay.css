@@ -1,0 +1,38 @@
+/*Extended Sidebar*/
+.RulesOverlay{
+    /*width is 100 - .Sidebar width*/
+    min-width:80%;
+    min-height: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding:2%;
+
+    background-color: #a3a3a3;
+    border-right:2px solid #282c34;
+    border-left-style: none;
+}
+
+.Textbox{
+    min-height:100%;
+
+    width:calc(fit-content+100px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    font-size: calc(6px + 2vmin);
+}
+
+.Heading{
+    font-size: calc(6px + 2vmin);
+}
+
+.Rules{
+    max-height: 60%;
+
+    font-size: 2vmin;
+}

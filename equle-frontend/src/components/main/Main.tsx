@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Game from './Game';
 import LeaderboardOverlay from './LeaderboardOverlay';
 import './Main.css';
+import RulesOverlay from './RulesOverlay';
 
 function Main(props:any) {
 
@@ -15,8 +16,10 @@ function Main(props:any) {
             </div>
 
             <LeaderboardOverlay isHidden = {props.isLeaderboardHidden} toggleLeaderboard = {props.toggleLeaderboard}></LeaderboardOverlay>
+
+            <RulesOverlay isHidden = {props.isOverlayHidden} toggleOverlay = {props.toggleOverlay}></RulesOverlay>
             
-            <div className = 'Main-Div' hidden = {!props.isLeaderboardHidden}>
+            <div className = 'Main-Div' hidden = {(!props.isLeaderboardHidden || !props.isOverlayHidden)}>
                 <Game></Game>
             </div>
             

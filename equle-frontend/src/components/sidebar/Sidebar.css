@@ -43,7 +43,7 @@
 
     background-repeat: no-repeat;
     background-size: 8vh 8vh;
-    
+
     background-color: #282c34;
     background-size: cover;
     
@@ -78,37 +78,3 @@
     background-image: url('./leaderboard_icon_highlighted.png');
 }
 
-/*Extended Sidebar*/
-.Extended{
-    /*width is 100 - .Sidebar width*/
-    min-width:auto;
-    max-height: 100vh;
-
-    padding:2%;
-
-    background-color: #a3a3a3;
-    border-right:2px solid #282c34;
-    border-left-style: none;
-}
-
-.Textbox{
-    min-height:100%;
-
-    width:calc(fit-content+100px);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    font-size: calc(6px + 2vmin);
-}
-
-.Heading{
-    font-size: calc(6px + 2vmin);
-}
-
-.Rules{
-    max-height: 60%;
-
-    font-size: 2vmin;
-}
